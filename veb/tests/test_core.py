@@ -305,12 +305,12 @@ class TestEmptyVEBTree(TestCase, VEBTestMixin):
         self.assertEqual(self.t.universe_size, 2)
 
 
-
 class VEBQueueTest(object):
     @expectedFailure
     def testCreateNotEvenPowerOfTwo(self):
         self.assertRaises(IndexError, vEBTree.of_size, 0)
         self.assertRaises(IndexError, vEBTree.of_size, 3)
+
 
 class LameQueue(object):
     def __init__(self):
@@ -379,11 +379,11 @@ class RandomTest(TestCase):
             if stateChange == 0:
                 q.add(value)
                 lame.add(value)
-                #~ print "add", value
+                #  print "add", value
             else:
                 q.discard(value)
                 lame.discard(value)
-                #~ print "remove", value
+                #  print "remove", value
 
             # Check the max/min variables
             assert lame.max() == q.max

@@ -4,7 +4,7 @@ Dynamically allocated van Emde Boas Trees (Queues).
 """
 
 from __future__ import division
-from collections import defaultdict
+from math import ceil, floor
 
 try:
     from collections.abc import MutableSet
@@ -12,10 +12,11 @@ except ImportError:
     from collections import MutableSet
 
 try:
-    from math import ceil, floor, log2
+    from math import log2
 except ImportError:
     from math import log
     def log2(n): return log(n, 2)
+
 
 if not isinstance(ceil(1.0), int):
     _ceil, _floor = ceil, floor
@@ -243,7 +244,9 @@ class _vEBTree(object):
         cluster = self.clusters[high]
 
         if cluster is None:
-            cluster = self.clusters[high] = vEBTree.of_size(self.summary.universe_size)
+            cluster = self.clusters[high] = vEBTree.of_size(
+                self.summary.universe_size,
+            )
             self.summary.add(high)
         cluster.add(low)
 
@@ -259,7 +262,7 @@ class _vEBTree(object):
                 cluster = self.clusters[new_min_in]
                 new_min = cluster.min
                 x = self.min = new_min_in * self._lower + new_min
-                # XXX: I don't know why just changing to 
+                # XXX: I don't know why just changing to
                 # cluster.discard(new_min_in) and returning doesn't work here
 
         high, low = divmod(x, self._lower)
@@ -278,7 +281,9 @@ class _vEBTree(object):
             if global_max is None:
                 self.max = self.min
             else:
-                self.max = global_max * self._lower + self.clusters[global_max].max
+                self.max = (
+                    global_max * self._lower + self.clusters[global_max].max
+                )
 
     def predecessor(self, x):
         if self.min is None or x <= self.min:
