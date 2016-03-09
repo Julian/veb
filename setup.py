@@ -25,7 +25,7 @@ setup(
     py_modules=(),
     setup_requires=["vcversioner"],
     vcversioner={"version_module_paths": ["veb/_version.py"]},
-    author="Julian Berman,Magnetic,,646-334-2277,",
+    author="Julian Berman",
     author_email="Julian@GrayVines.com",
     classifiers=classifiers,
     description="",
