@@ -8,3 +8,5 @@
 /.tox
 # next line prevents distribution of cpython's cache 
 /veb/__pycache__
+veb/tests/__pycache__/__init__.cpython-310.pyc
+veb/tests/__pycache__/test_core.cpython-310.pyc
