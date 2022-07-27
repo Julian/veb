@@ -159,7 +159,7 @@ class TestVEBTree(TestCase, VEBTestMixin):
         self.t.update([0, 1, 3])
         self.assertEqual(self.t.successor(1), 3)
 
-    def test_grow(self):
+    def test_grow_on_addition(self):
         t = vEBTree.of_size(2)
         self.assertEqual(t.universe_size, 2)
 
@@ -177,6 +177,39 @@ class TestVEBTree(TestCase, VEBTestMixin):
 
         t.add(195)
         self.assertEqual(t.universe_size, 256)
+
+    def test_grow_keeps_elements(self):
+        t = vEBTree.of_size(8)
+        added = [2, 7, 5]
+        for x in added:
+            t.add(x)
+        t.grow(32)
+        saved = list(t)
+        # there should be equal amount of added and saved distinct elements
+        self.assertEqual(len(added), len(saved))
+        # every added element should have been saved
+        added.sort()
+        saved.sort()
+        for i in range(len(added)):
+            self.assertEqual(added[i], saved[i])
+
+    def test_grow_keeps_max(self):
+        t = vEBTree.of_size(4)
+
+        t.add(2)
+        self.assertEqual(t.max, 2)
+
+        t.grow(16)
+        self.assertEqual(t.max, 2)
+
+    def test_grow_keeps_min(self):
+        t = vEBTree.of_size(4)
+
+        t.add(2)
+        self.assertEqual(t.min, 2)
+
+        t.grow(16)
+        self.assertEqual(t.min, 2)
 
     def test_of_size(self):
         t = vEBTree.of_size(16)
