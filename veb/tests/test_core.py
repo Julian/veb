@@ -216,9 +216,19 @@ class TestVEBTree(TestCase, VEBTestMixin):
         self.assertEqual(t.universe_size, 16)
 
     def test_update(self):
+        # test 1
         self.t.update((1, 2))
         self.assertIn(1, self.t)
         self.assertIn(2, self.t)
+        # test 2
+        e = []
+        for x in range(32):
+            e.append(x)
+        t = vEBTree([])
+        t.update(e)
+        self.assertEqual(len(t), len(e))
+        for x in e:
+            self.assertIn(x, t)
 
     def test_init_adds_all_contents(self):
         t = vEBTree([1, 3, 15])
