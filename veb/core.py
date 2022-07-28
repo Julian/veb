@@ -117,9 +117,9 @@ class vEBTree(MutableSet):
         self._update_root(_vEBTree(new_size))
 
         if old_root is not _EMPTY:
-            # when tree grows from even powers of 2 into odd ones, 4(2^2) -> 8(2^3),
-            # sizes of clusters stay the same, which allows to copy them directly 
-            # from old root
+            # when tree grows from even powers of 2 into odd ones, for example
+            # 4 into 8 (2^2 into 2^3), sizes of clusters stay the same, which
+            # allows to copy them directly from old root.
             if new_size - old_size == 1 and old_size % 2 == 0:
                 for i in range(len(old_root.clusters)):
                     self._root.clusters[i] = old_root.clusters[i]
