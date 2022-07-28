@@ -108,15 +108,20 @@ class vEBTree(MutableSet):
         if to_size <= 2:
             return self._update_root(_vEBLeaf())
 
+        # u = 2 ^ m -> m = log2(u), u = to_size, m = square_root
         square_root = ceil(log2(to_size))
         old_root = self._root
+        # 1 << m = 2 ^ m
         self._update_root(_vEBTree(1 << square_root))
 
         if old_root is not _EMPTY:
-            if log2(square_root).is_integer():  # an even power of two
+            if log2(square_root).is_integer():  # if square_root is a power of two
                 # XXX: I *think* there's a bug here with no failing test. We
                 # should have to update something in the new root's summary.
                 self._root.clusters[0] = old_root
+                # min and max properties need to be updated
+                self._root.min = old_root.min
+                self._root.max = old_root.max
             else:
                 self.update(old_root)           # odd, need to redistribute
 
