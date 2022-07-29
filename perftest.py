@@ -1,6 +1,7 @@
 from __future__ import print_function
-from timeit import timeit
+
 from random import randint
+from timeit import timeit
 import profile
 
 from veb import vEBTree
