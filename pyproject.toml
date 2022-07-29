@@ -1,0 +1,46 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[project]
+name = "veb"
+description = "Dynamically-allocated reduced-space van Emde Boas trees."
+readme = "README.rst"
+license = {text = "MIT"}
+keywords = ["data structure"]
+authors = [
+  {email = "Julian+veb@GrayVines.com"},
+  {name = "Julian Berman"},
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+
+]
+dynamic = ["version"]
+
+
+
+[project.urls]
+Homepage = "https://github.com/Julian/veb"
+Issues = "https://github.com/Julian/veb/issues/"
+Funding = "https://github.com/sponsors/Julian"
+Source = "https://github.com/Julian/veb"
+
+[tool.isort]
+from_first = true
+include_trailing_comma = true
+multi_line_output = 3
