@@ -3,39 +3,32 @@ Dynamically allocated van Emde Boas Trees (Queues).
 
 """
 
-from __future__ import division
-from math import ceil, floor
-
-try:
-    from collections.abc import MutableSet
-except ImportError:
-    from collections import MutableSet
-
-try:
-    from math import log2
-except ImportError:
-    from math import log
-    def log2(n): return log(n, 2)
+from collections.abc import MutableSet
+from math import ceil, floor, log2
 
 
-if not isinstance(ceil(1.0), int):
-    _ceil, _floor = ceil, floor
-    def ceil(n): return int(_ceil(n))
-    def floor(n): return int(_floor(n))
+class _EmptyVEBTree:
 
-
-__version__ = "0.1.0"
-
-
-class _EmptyVEBTree(object):
     min = max = None
     universe_size = 0
-    def __contains__(self, i): return False
-    def __iter__(self): return iter([])
-    def __len__(self): return 0
-    def predecessor(self, i): return None
-    def successor(self, i): return None
-    def discard(self, i): return None
+
+    def __contains__(self, i):
+        return False
+
+    def __iter__(self):
+        return iter([])
+
+    def __len__(self):
+        return 0
+
+    def predecessor(self, i):
+        return None
+
+    def successor(self, i):
+        return None
+
+    def discard(self, i):
+        return None
 
 
 _EMPTY = _EmptyVEBTree()
@@ -65,11 +58,11 @@ class vEBTree(MutableSet):
             return NotImplemented
 
         return (
-            self.universe_size == other.universe_size and
-            self.min == other.min and
-            self.max == other.max and
-            len(self) == len(other) and
-            all(i == j for i, j in zip(self, other))
+            self.universe_size == other.universe_size
+            and self.min == other.min
+            and self.max == other.max
+            and len(self) == len(other)
+            and all(i == j for i, j in zip(self, other))
         )
 
     def __iter__(self):
@@ -151,7 +144,7 @@ class vEBTree(MutableSet):
             self.add(i)
 
 
-class _vEBLeaf(object):
+class _vEBLeaf:
     universe_size = 2
 
     def __init__(self):
@@ -202,7 +195,7 @@ class _vEBLeaf(object):
             return 0 if self.values[0] else 1 if self.values[1] else None
 
 
-class _vEBTree(object):
+class _vEBTree:
 
     min = max = None
 

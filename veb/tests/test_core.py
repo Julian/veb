@@ -405,8 +405,8 @@ class RandomTest(TestCase):
             # Do some searches
             numSearches = random.randint(0, 10)
             operations -= numSearches
-            for i in range(numSearches):
-                search = random.randint(0, n-1)
+            for _ in range(numSearches):
+                search = random.randint(0, n - 1)
                 r1 = search in lame
                 r2 = search in q
                 self.assertEqual(r1, r2)
@@ -417,7 +417,7 @@ class RandomTest(TestCase):
 
             # Change the queue state
             operations -= 1
-            value = random.randint(0, n-1)
+            value = random.randint(0, n - 1)
             stateChange = random.randint(0, 1)
             if stateChange == 0:
                 q.add(value)
