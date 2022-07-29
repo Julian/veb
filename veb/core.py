@@ -108,17 +108,31 @@ class vEBTree(MutableSet):
         if to_size <= 2:
             return self._update_root(_vEBLeaf())
 
+        # u = 2 ^ m -> m = log2(u), u = to_size, m = square_root
         square_root = ceil(log2(to_size))
         old_root = self._root
-        self._update_root(_vEBTree(1 << square_root))
+        old_size = self.universe_size
+        new_size = 1 << square_root
+        # 1 << m = 2 ^ m
+        self._update_root(_vEBTree(new_size))
 
         if old_root is not _EMPTY:
-            if log2(square_root).is_integer():  # an even power of two
-                # XXX: I *think* there's a bug here with no failing test. We
-                # should have to update something in the new root's summary.
-                self._root.clusters[0] = old_root
+            # when tree grows from even powers of 2 into odd ones, for example
+            # 4 into 8 (2^2 into 2^3), sizes of clusters stay the same, which
+            # allows to copy them directly from old root.
+            if new_size - old_size == 1 and old_size % 2 == 0:
+                for i in range(len(old_root.clusters)):
+                    self._root.clusters[i] = old_root.clusters[i]
+                # updating clusters means updating summary
+                # NOTE: this worked first time even though I didn't really
+                # know how exactly summary works. be cautious here.
+                for i in range(len(old_root.summary)):
+                    self._root.summary[i] = old_root.summary[i]
+                # min and max properties need to be updated
+                self._root.min = old_root.min
+                self._root.max = old_root.max
             else:
-                self.update(old_root)           # odd, need to redistribute
+                self.update(old_root)
 
     def add(self, i):
         if i >= self.universe_size:
@@ -126,6 +140,13 @@ class vEBTree(MutableSet):
         self._root.add(i)
 
     def update(self, iterable):
+        maxX = -1
+        for x in iterable:
+            maxX = max(maxX, x)
+        # this is done to prevent multiple grows per one update call
+        if maxX >= self.universe_size:
+            self.grow(maxX + 1)
+        # adding maxX twice doesn't hurt anybody, so it's not excluded
         for i in iterable:
             self.add(i)
 
