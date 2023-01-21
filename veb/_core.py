@@ -48,6 +48,7 @@ class vEBTree(MutableSet):
 
     def __bool__(self):
         return self.min is not None
+
     __nonzero__ = __bool__
 
     def __contains__(self, i):

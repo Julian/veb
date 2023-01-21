@@ -5,7 +5,7 @@ import random
 from veb import vEBTree
 
 
-class VEBTestMixin(object):
+class VEBTestMixin:
     def test_repr(self):
         self.assertEqual(repr(self.t), "vEBTree(%r)" % list(self.t))
 
@@ -348,14 +348,14 @@ class TestEmptyVEBTree(TestCase, VEBTestMixin):
         self.assertEqual(self.t.universe_size, 2)
 
 
-class VEBQueueTest(object):
+class VEBQueueTest:
     @expectedFailure
     def testCreateNotEvenPowerOfTwo(self):
         self.assertRaises(IndexError, vEBTree.of_size, 0)
         self.assertRaises(IndexError, vEBTree.of_size, 3)
 
 
-class LameQueue(object):
+class LameQueue:
     def __init__(self):
         self.q = []
 
