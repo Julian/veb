@@ -8,7 +8,6 @@ from math import ceil, floor, log2
 
 
 class _EmptyVEBTree:
-
     min = max = None
     universe_size = 0
 
@@ -35,7 +34,6 @@ _EMPTY = _EmptyVEBTree()
 
 
 class vEBTree(MutableSet):
-
     _root = _EMPTY
     universe_size = _root.universe_size
     discard = _root.discard
@@ -197,7 +195,6 @@ class _vEBLeaf:
 
 
 class _vEBTree:
-
     min = max = None
 
     def __init__(self, n):
