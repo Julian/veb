@@ -12,7 +12,7 @@ def random_tree(size):
 
 
 for size in range(1, 16):
-    bench = "random_tree(2 ** {})".format(size)
+    bench = f"random_tree(2 ** {size})"
     t = timeit(
         bench, "from __main__ import random_tree, size, vEBTree", number=1000
     )
