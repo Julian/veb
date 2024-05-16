@@ -7,7 +7,7 @@ from veb import vEBTree
 
 class VEBTestMixin:
     def test_repr(self):
-        self.assertEqual(repr(self.t), "vEBTree(%r)" % list(self.t))
+        self.assertEqual(repr(self.t), f"vEBTree({list(self.t)!r})")
 
     def test_len(self):
         self.assertEqual(len(self.t), 0)
@@ -221,9 +221,7 @@ class TestVEBTree(TestCase, VEBTestMixin):
         self.assertIn(1, self.t)
         self.assertIn(2, self.t)
         # test 2
-        e = []
-        for x in range(32):
-            e.append(x)
+        e = list(range(32))
         t = vEBTree([])
         t.update(e)
         self.assertEqual(len(t), len(e))
@@ -429,5 +427,5 @@ class RandomTest(TestCase):
                 #  print "remove", value
 
             # Check the max/min variables
-            assert lame.max() == q.max
-            assert lame.min() == q.min
+            self.assertEqual(lame.max(), q.max)
+            self.assertEqual(lame.min(), q.min)

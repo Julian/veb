@@ -71,7 +71,7 @@ class vEBTree(MutableSet):
         return len(self._root)
 
     def __repr__(self):
-        return "vEBTree(%r)" % list(self)
+        return f"vEBTree({list(self)!r})"
 
     def _update_root(self, new_root):
         self._root = new_root
