@@ -359,9 +359,7 @@ class LameQueue:
 
     def __contains__(self, x):
         locate = bisect.bisect_left(self.q, x)
-        if locate == len(self.q) or self.q[locate] != x:
-            return False
-        return True
+        return not (locate == len(self.q) or self.q[locate] != x)
 
     def add(self, x):
         # Do a sorted insert
