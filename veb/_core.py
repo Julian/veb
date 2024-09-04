@@ -247,10 +247,8 @@ class _vEBTree:
 
         if x == self.min:
             return
-        if x < self.min:
-            x, self.min = self.min, x
-        if x > self.max:
-            self.max = x
+        self.min = min(x, self.min)
+        self.max = max(x, self.max)
 
         high, low = divmod(x, self._lower)
         cluster = self.clusters[high]
